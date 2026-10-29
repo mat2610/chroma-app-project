@@ -1,0 +1,68 @@
+[
+  {
+    "id": 27992,
+    "title": "A Sunday on La Grande Jatte — 1884",
+    "artist": "Georges Seurat",
+    "dateDisplay": "1884–86, border added 1888–89",
+    "dateStart": 1884,
+    "medium": "Oil on canvas",
+    "placeOfOrigin": "France",
+    "imageId": "2d484387-2509-5e8e-2c43-22f9981972eb",
+    "color": { "h": 59, "s": 12, "l": 52 }
+  },
+  {
+    "id": 28560,
+    "title": "The Bedroom",
+    "artist": "Vincent van Gogh",
+    "dateDisplay": "1889",
+    "dateStart": 1889,
+    "medium": "Oil on canvas",
+    "placeOfOrigin": "Saint-Rémy-de-Provence",
+    "imageId": "6644829f-f292-c5c4-a73c-0356a6fdbf0d",
+    "color": { "h": 40, "s": 65, "l": 34 }
+  },
+  {
+    "id": 111628,
+    "title": "Nighthawks",
+    "artist": "Edward Hopper",
+    "dateDisplay": "1942",
+    "dateStart": 1942,
+    "medium": "Oil on canvas",
+    "placeOfOrigin": "United States",
+    "imageId": "831a05de-d3f6-f4fa-a460-23008dd58dda",
+    "color": { "h": 41, "s": 44, "l": 41 }
+  },
+  {
+    "id": 6565,
+    "title": "American Gothic",
+    "artist": "Grant Wood",
+    "dateDisplay": "1930",
+    "dateStart": 1930,
+    "medium": "Oil on Beaver Board",
+    "placeOfOrigin": "Cedar Rapids",
+    "imageId": "b272df73-a965-ac37-4172-be4e99483637",
+    "color": { "h": 42, "s": 22, "l": 44 }
+  },
+  {
+    "id": 16568,
+    "title": "Water Lilies",
+    "artist": "Claude Monet",
+    "dateDisplay": "1906",
+    "dateStart": 1906,
+    "medium": "Oil on canvas",
+    "placeOfOrigin": "France",
+    "imageId": "3c27b499-af56-f0d5-93b5-a7f2f1ad5813",
+    "color": { "h": 197, "s": 41, "l": 37 }
+  },
+  {
+    "id": 20684,
+    "title": "Paris Street; Rainy Day",
+    "artist": "Gustave Caillebotte",
+    "dateDisplay": "1877",
+    "dateStart": 1877,
+    "medium": "Oil on canvas",
+    "placeOfOrigin": "Paris",
+    "imageId": "f8fd76e9-c396-5678-36ed-6a348c904d27",
+    "color": { "h": 205, "s": 14, "l": 51 }
+  }
+]
