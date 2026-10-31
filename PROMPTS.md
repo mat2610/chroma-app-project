@@ -15,3 +15,7 @@
 **21:47 · claude**
 
 > Do task 1 from tasks.md only. Create src/types.ts with the Artwork and ArtworkColor types, src/data/sample.json with 6 real artworks from the Art Institute of Chicago, and the Gallery and ArtworkCard components with typed props. Remove the Vite demo content. Then run npm run build and explain each file.
+
+**21:52 · claude**
+
+> Do task 2 only. Install react-router-dom. Wrap App in BrowserRouter in main.tsx. In App.tsx define the routes /, /artworks/:id, /favorites, /insights and *, with pages in src/pages. ArtworkPage reads id with useParams and finds the artwork in sample.json for now. Add a NavBar with NavLink. ArtworkCard becomes a Link. Explain how a click on a card reaches ArtworkPage.
