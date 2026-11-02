@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { fetchArtwork } from '../api'
 import ErrorMessage from '../components/ErrorMessage'
 import type { Artwork, Status } from '../types'
-import { imageUrl, toArtwork } from '../utils/artworks'
+import { toArtwork } from '../utils/artworks'
 
 function ArtworkPage() {
   const { id } = useParams()
@@ -53,18 +53,18 @@ function ArtworkPage() {
     <article className="artwork-page">
       <img
         className="artwork-page-image"
-        src={imageUrl(artwork.imageId)}
+        src={artwork.imageUrl}
         alt={artwork.title}
       />
       <h1>{artwork.title}</h1>
       <p className="artwork-page-artist">{artwork.artist}</p>
       <dl className="artwork-page-details">
         <dt>Date</dt>
-        <dd>{artwork.dateDisplay}</dd>
-        <dt>Medium</dt>
-        <dd>{artwork.medium}</dd>
-        <dt>Place of origin</dt>
-        <dd>{artwork.placeOfOrigin}</dd>
+        <dd>{artwork.date}</dd>
+        <dt>Technique</dt>
+        <dd>{artwork.technique}</dd>
+        <dt>Culture</dt>
+        <dd>{artwork.culture}</dd>
       </dl>
     </article>
   )

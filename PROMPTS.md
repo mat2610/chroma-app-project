@@ -31,3 +31,13 @@
 **23:44 · claude**
 
 > Do task 4 only. Install vitest and @vitest/ui as dev dependencies, add the scripts "test": "vitest run" and "test:ui": "vitest --ui". Write src/utils/artworks.test.ts with tests for toArtwork, toArtworks and imageUrl. Run npm test, then explain what each test checks and why.
+
+## 2026-11-03
+
+**00:06 · claude**
+
+> Do task 5 from tasks.md only. The Art Institute of Chicago API now fails in Chrome: the console shows "blocked by CORS policy: No 'Access-Control-Allow-Origin' header" and "403 (Forbidden)". Switch src/api.ts to the Cleveland Museum of Art API with the URLs in PRD.md. Add an ApiArtwork type for its shape, update toArtwork (artist = creators[0].description before " (", image = images.web.url, culture = first item, kind from type) and the tests. Remove the old color field. Then run npm test and npm run build, and explain what changed and why.
+
+**00:13 · claude**
+
+> The app still shows "Could not load the artworks". Debugging showed the Cleveland API sometimes serves a cached response without the Access-Control-Allow-Origin header for a given URL, so the browser blocks it. The same request with a unique query parameter always works. In src/api.ts, add a cache-busting parameter to both fetchArtworks and fetchArtwork (for example &t=${Date.now()} for the list and ?t=${Date.now()} for one artwork), with a short comment explaining why. Then run npm test and npm run build.
