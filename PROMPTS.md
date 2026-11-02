@@ -25,3 +25,9 @@
 **10:54 · claude**
 
 > Do task 3 only. Create src/api.ts with fetchArtworks() (https://api.artic.edu/api/v1/artworks?fields=id,title,artist_title,date_display,date_start,medium_display,place_of_origin,image_id,color&limit=60) and fetchArtwork(id). Create src/utils/artworks.ts with toArtwork (API item to Artwork, missing artist becomes "Unknown artist"), toArtworks (skips items without image_id) and imageUrl. In App: artworks and status ('loading' | 'error' | 'ready') states, fetch inside useEffect, a reload function for "Try again". ArtworkPage fetches its own artwork by id. Add Loader (skeleton cards) and ErrorMessage. Explain the three states.
+
+## 2026-11-02
+
+**23:44 · claude**
+
+> Do task 4 only. Install vitest and @vitest/ui as dev dependencies, add the scripts "test": "vitest run" and "test:ui": "vitest --ui". Write src/utils/artworks.test.ts with tests for toArtwork, toArtworks and imageUrl. Run npm test, then explain what each test checks and why.
