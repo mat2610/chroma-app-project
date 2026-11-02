@@ -1,20 +1,61 @@
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import sample from '../data/sample.json'
-import type { Artwork } from '../types'
-
-// For now we look in the static list. In task 3 this page will fetch its own artwork.
-const artworks: Artwork[] = sample
+import { fetchArtwork } from '../api'
+import ErrorMessage from '../components/ErrorMessage'
+import type { Artwork, Status } from '../types'
+import { imageUrl, toArtwork } from '../utils/artworks'
 
 function ArtworkPage() {
   const { id } = useParams()
-  const artwork = artworks.find((item) => item.id === Number(id))
+  const [artwork, setArtwork] = useState<Artwork | null>(null)
+  const [status, setStatus] = useState<Status>('loading')
+  // Changing this number runs the effect again ("Try again").
+  const [attempt, setAttempt] = useState(0)
 
-  if (artwork === undefined) {
-    return <p>Artwork not found.</p>
+  useEffect(() => {
+    if (id === undefined) {
+      return
+    }
+    // If the id changes before the answer arrives, we ignore the old answer.
+    let ignore = false
+    setStatus('loading')
+    fetchArtwork(id)
+      .then((item) => {
+        if (!ignore) {
+          setArtwork(toArtwork(item))
+          setStatus('ready')
+        }
+      })
+      .catch(() => {
+        if (!ignore) {
+          setStatus('error')
+        }
+      })
+    return () => {
+      ignore = true
+    }
+  }, [id, attempt])
+
+  if (status === 'loading') {
+    return <p>Loading…</p>
+  }
+
+  if (status === 'error' || artwork === null) {
+    return (
+      <ErrorMessage
+        message="Could not load this artwork."
+        onRetry={() => setAttempt(attempt + 1)}
+      />
+    )
   }
 
   return (
     <article className="artwork-page">
+      <img
+        className="artwork-page-image"
+        src={imageUrl(artwork.imageId)}
+        alt={artwork.title}
+      />
       <h1>{artwork.title}</h1>
       <p className="artwork-page-artist">{artwork.artist}</p>
       <dl className="artwork-page-details">

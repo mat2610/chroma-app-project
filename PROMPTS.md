@@ -19,3 +19,9 @@
 **21:52 · claude**
 
 > Do task 2 only. Install react-router-dom. Wrap App in BrowserRouter in main.tsx. In App.tsx define the routes /, /artworks/:id, /favorites, /insights and *, with pages in src/pages. ArtworkPage reads id with useParams and finds the artwork in sample.json for now. Add a NavBar with NavLink. ArtworkCard becomes a Link. Explain how a click on a card reaches ArtworkPage.
+
+## 2026-10-31
+
+**10:54 · claude**
+
+> Do task 3 only. Create src/api.ts with fetchArtworks() (https://api.artic.edu/api/v1/artworks?fields=id,title,artist_title,date_display,date_start,medium_display,place_of_origin,image_id,color&limit=60) and fetchArtwork(id). Create src/utils/artworks.ts with toArtwork (API item to Artwork, missing artist becomes "Unknown artist"), toArtworks (skips items without image_id) and imageUrl. In App: artworks and status ('loading' | 'error' | 'ready') states, fetch inside useEffect, a reload function for "Try again". ArtworkPage fetches its own artwork by id. Add Loader (skeleton cards) and ErrorMessage. Explain the three states.
