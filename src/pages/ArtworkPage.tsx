@@ -2,10 +2,16 @@ import { useEffect, useState, type CSSProperties } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { fetchArtwork } from '../api'
 import ErrorMessage from '../components/ErrorMessage'
+import FavoriteButton from '../components/FavoriteButton'
 import type { Artwork, Status } from '../types'
 import { getArtworkKind, getKindColor, toArtwork } from '../utils/artworks'
 
-function ArtworkPage() {
+type ArtworkPageProps = {
+  favorites: Artwork[]
+  onToggleFavorite: (artwork: Artwork) => void
+}
+
+function ArtworkPage({ favorites, onToggleFavorite }: ArtworkPageProps) {
   const { id } = useParams()
   const navigate = useNavigate()
   const location = useLocation()
@@ -80,6 +86,10 @@ function ArtworkPage() {
         />
         <h1>{artwork.title}</h1>
         <p className="artwork-page-artist">{artwork.artist}</p>
+        <FavoriteButton
+          isFavorite={favorites.some((favorite) => favorite.id === artwork.id)}
+          onToggle={() => onToggleFavorite(artwork)}
+        />
         <dl className="artwork-page-details">
           {details.map(([label, value]) => (
             <div key={label}>

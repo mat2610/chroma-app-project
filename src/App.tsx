@@ -11,10 +11,23 @@ import InsightsPage from './pages/InsightsPage'
 import NotFoundPage from './pages/NotFoundPage'
 import type { Artwork, Status } from './types'
 import { toArtworks } from './utils/artworks'
+import { loadFavorites, saveFavorites, toggleInList } from './utils/favorites'
 
 function App() {
   const [artworks, setArtworks] = useState<Artwork[]>([])
   const [status, setStatus] = useState<Status>('loading')
+  // Read from localStorage once, at the first render (a function, so it does not run again on every render).
+  const [favorites, setFavorites] = useState<Artwork[]>(loadFavorites)
+
+  // Saved after every change of the list.
+  useEffect(() => {
+    saveFavorites(favorites)
+  }, [favorites])
+
+  // Adds the artwork if it is not a favorite yet, removes it if it is.
+  function toggleFavorite(artwork: Artwork) {
+    setFavorites((current) => toggleInList(current, artwork))
+  }
 
   function loadArtworks() {
     fetchArtworks()
@@ -54,12 +67,18 @@ function App() {
 
   return (
     <>
-      <NavBar />
+      <NavBar favoritesCount={favorites.length} />
       <main className="app">
         <Routes>
           <Route path="/" element={galleryContent} />
-          <Route path="/artworks/:id" element={<ArtworkPage />} />
-          <Route path="/favorites" element={<FavoritesPage />} />
+          <Route
+            path="/artworks/:id"
+            element={<ArtworkPage favorites={favorites} onToggleFavorite={toggleFavorite} />}
+          />
+          <Route
+            path="/favorites"
+            element={<FavoritesPage favorites={favorites} onRemove={toggleFavorite} />}
+          />
           <Route path="/insights" element={<InsightsPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

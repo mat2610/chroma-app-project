@@ -74,3 +74,7 @@
 **11:39 · claude**
 
 > Add a "← Back" button at the top of ArtworkPage. It uses useNavigate: navigate(-1) to go back to the previous page (gallery, favorites or insights), and if there is no previous page (the artwork was opened from a direct link), it goes to "/" instead. Keep it simple, style it like the other buttons, at least 44px high. Explain how it works.
+
+**11:41 · claude**
+
+> Do task 9 only. In App, a favorites state (Artwork[]) initialized from localStorage, saved with useEffect on every change, and a toggleFavorite(artwork) function passed by props. Add a FavoriteButton (heart) on ArtworkPage, the favorites count in NavBar, and FavoritesPage with a remove button and an empty state. Explain the path of a click on the heart.

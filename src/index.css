@@ -30,6 +30,17 @@ body {
   text-decoration: none;
 }
 
+.navbar-count {
+  display: inline-block;
+  min-width: 1.5em;
+  margin-left: 4px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: #2a2a27;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
 /* NavLink adds the class "active" to the link of the current page. */
 .navbar a.active {
   color: var(--text);
@@ -163,6 +174,52 @@ body {
   color: var(--kind-color);
   font-size: 1.15rem;
   transition: color 0.6s ease;
+}
+
+/* Like the back button, at least 44px high. The heart takes the color of the kind. */
+.favorite-button,
+.remove-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid #2a2a27;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.favorite-button span {
+  color: var(--kind-color);
+  font-size: 1.3rem;
+  transition: color 0.6s ease;
+}
+
+.favorite-button[aria-pressed='true'] {
+  border-color: var(--kind-color);
+}
+
+.favorite-button:hover,
+.remove-button:hover {
+  border-color: var(--text);
+}
+
+.favorite-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.remove-button {
+  align-self: flex-start;
+  color: var(--muted);
+}
+
+.favorites-empty a {
+  color: var(--text);
 }
 
 .artwork-page-details {
