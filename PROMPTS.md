@@ -66,3 +66,11 @@
 **11:24 · claude**
 
 > > Checked: every kind chip shows artworks, kinds are mixed, and kind + search combine correctly.
+
+**11:29 · claude**
+
+> Do task 8 only. Add getKindColor(kind) in utils returning the colors from PRD.md, with a test. On ArtworkPage, use it for a dark tinted background and accent with a smooth transition, and show title, artist, date, technique, culture, department and the description as plain text. Add a "View at the museum" link to https://www.clevelandart.org/art/{accession_number}.
+
+**11:39 · claude**
+
+> Add a "← Back" button at the top of ArtworkPage. It uses useNavigate: navigate(-1) to go back to the previous page (gallery, favorites or insights), and if there is no previous page (the artwork was opened from a direct link), it goes to "/" instead. Keep it simple, style it like the other buttons, at least 44px high. Explain how it works.

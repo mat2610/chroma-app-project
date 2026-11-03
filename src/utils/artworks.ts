@@ -9,6 +9,15 @@ function artistName(item: ApiArtwork): string {
   return description.split(' (')[0]
 }
 
+// The API description is HTML: <br> becomes a line break, other tags (<em>, <a>…) are removed, their text is kept.
+function toPlainText(html: string): string {
+  return html
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<[^>]*>/g, '')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim()
+}
+
 // Converts one API item into our Artwork shape, with a default for every missing value.
 export function toArtwork(item: ApiArtwork): Artwork {
   return {
@@ -22,7 +31,7 @@ export function toArtwork(item: ApiArtwork): Artwork {
     culture: item.culture[0] ?? '',
     type: item.type ?? '',
     department: item.department ?? '',
-    description: item.description ?? '',
+    description: toPlainText(item.description ?? ''),
     imageUrl: item.images?.web?.url ?? '',
   }
 }
@@ -54,6 +63,11 @@ export const KIND_COLORS: Record<ArtworkKind, string> = {
   photograph: '#9aa5b1',
   sculpture: '#8fbf8a',
   other: '#a6a29a',
+}
+
+// The color of a kind, for the chips and the tinted artwork page.
+export function getKindColor(kind: ArtworkKind): string {
+  return KIND_COLORS[kind]
 }
 
 // The API type ('Painting', 'Print'…) → our kind. Any other type (Ceramic, Textile…) is 'other'.

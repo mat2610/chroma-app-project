@@ -1,6 +1,13 @@
 import { describe, expect, it } from 'vitest'
 import type { ApiArtwork, Artwork } from '../types'
-import { filterArtworks, getArtworkKind, shuffle, toArtwork, toArtworks } from './artworks'
+import {
+  filterArtworks,
+  getArtworkKind,
+  getKindColor,
+  shuffle,
+  toArtwork,
+  toArtworks,
+} from './artworks'
 
 // A complete API item (a real one from the Cleveland API); each test copies it and changes only what it checks.
 const apiItem: ApiArtwork = {
@@ -80,6 +87,17 @@ describe('toArtwork', () => {
     expect(artwork.department).toBe('')
     expect(artwork.description).toBe('')
     expect(artwork.imageUrl).toBe('')
+  })
+})
+
+describe('toArtwork description', () => {
+  it('turns the HTML description into plain text', () => {
+    const item = {
+      ...apiItem,
+      description:
+        'A <em>raucous</em> saloon.<br><br>See <a href="https://example.com">the club</a>.',
+    }
+    expect(toArtwork(item).description).toBe('A raucous saloon.\n\nSee the club.')
   })
 })
 
@@ -185,5 +203,18 @@ describe('shuffle', () => {
 
   it('returns an empty list for an empty list', () => {
     expect(shuffle([])).toEqual([])
+  })
+})
+
+describe('getKindColor', () => {
+  it.each([
+    ['painting', '#c9a46a'],
+    ['print', '#6f9fd8'],
+    ['drawing', '#d98c6a'],
+    ['photograph', '#9aa5b1'],
+    ['sculpture', '#8fbf8a'],
+    ['other', '#a6a29a'],
+  ] as const)('gives %s its PRD color %s', (kind, color) => {
+    expect(getKindColor(kind)).toBe(color)
   })
 })

@@ -127,6 +127,76 @@ body {
   color: var(--muted);
 }
 
+/* --kind-color is set by ArtworkPage. The background is a dark mix of it and the page color. */
+.artwork-page {
+  --kind-color: var(--muted);
+  padding: 32px;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--kind-color) 35%, transparent);
+  background-color: color-mix(in srgb, var(--kind-color) 14%, var(--bg));
+  transition:
+    background-color 0.6s ease,
+    border-color 0.6s ease;
+}
+
+/* Same look as the kind chips, at least 44px high so it is easy to tap. */
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-bottom: 24px;
+  padding: 0 18px;
+  border: 1px solid #2a2a27;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  border-color: var(--text);
+  color: var(--text);
+}
+
+.artwork-page-artist {
+  color: var(--kind-color);
+  font-size: 1.15rem;
+  transition: color 0.6s ease;
+}
+
+.artwork-page-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.artwork-page-details dt {
+  color: var(--muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.artwork-page-details dd {
+  margin: 4px 0 0;
+}
+
+/* pre-line: the line breaks of the description show as paragraphs. */
+.artwork-page-description {
+  max-width: 70ch;
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+.artwork-page-link {
+  display: inline-block;
+  margin-top: 8px;
+  color: var(--kind-color);
+  transition: color 0.6s ease;
+}
+
 .artwork-page-image {
   display: block;
   max-width: 100%;
