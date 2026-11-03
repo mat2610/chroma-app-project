@@ -14,6 +14,9 @@ export type Artwork = {
   imageUrl: string
 }
 
+// The kinds of work Chroma groups artworks into, each with its own color.
+export type ArtworkKind = 'painting' | 'print' | 'drawing' | 'photograph' | 'sculpture' | 'other'
+
 // One creator of an artwork. "description" reads like "Thomas Eakins (American, 1844–1916)".
 type ApiCreator = {
   description: string

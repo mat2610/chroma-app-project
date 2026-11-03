@@ -45,3 +45,24 @@
 **10:44 · claude**
 
 > Do task 6 only. Add a SearchBar component (controlled input, typed props value and onChange). The query state lives in GalleryPage. Add filterArtworks(artworks, query) in utils, case-insensitive on title and artist, with tests including an empty query. Explain why query lives in GalleryPage and not in App.
+
+**10:50 · claude**
+
+> > Checked: searching "Bellows" shows only Stag at Sharkey's, clearing the box shows all artworks again.
+
+**10:50 · claude**
+
+> Do task 7 only. Add the ArtworkKind type ('painting' | 'print' | 'drawing' | 'photograph' | 'sculpture' | 'other') and getArtworkKind(type) in utils, with one test per kind. Add a KindFilter component (chips with a colored dot, "All" first, colors from PRD.md), the kind state in GalleryPage, and the text "X of Y artworks". Explain how search and the kind filter combine.
+
+**11:13 · claude**
+
+> <ide_opened_file>The user opened the file c:\Users\User\OneDrive\Documents\לימודים\פיתוח web באמצעות ai\salon\chroma-app-project\PROMPTS.md in the IDE. This may or may not be related to the current task.</ide_opened_file>
+> Go with one request per kind: in fetchArtworks, fetch 20 artworks for each kind (Painting, Print, Drawing, Photograph, Sculpture) with Promise.all, keep the cache-busting parameter, and merge them into one list. App and the components should not change. Update the tests if needed, run npm test and npm run build, and explain Promise.all in simple words.
+
+**11:24 · claude**
+
+> Yes: shuffle the merged list once after loading so kinds are mixed (a simple shuffle function in utils, with a test that it keeps the same items), and hide the "Other" chip. Then run npm test and npm run build.
+
+**11:24 · claude**
+
+> > Checked: every kind chip shows artworks, kinds are mixed, and kind + search combine correctly.

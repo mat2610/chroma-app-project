@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { ApiArtwork, Artwork } from '../types'
-import { filterArtworks, toArtwork, toArtworks } from './artworks'
+import { filterArtworks, getArtworkKind, shuffle, toArtwork, toArtworks } from './artworks'
 
 // A complete API item (a real one from the Cleveland API); each test copies it and changes only what it checks.
 const apiItem: ApiArtwork = {
@@ -138,5 +138,52 @@ describe('filterArtworks', () => {
 
   it('returns an empty list when nothing matches', () => {
     expect(filterArtworks(artworks, 'picasso')).toEqual([])
+  })
+})
+
+describe('getArtworkKind', () => {
+  it('maps Painting to painting', () => {
+    expect(getArtworkKind('Painting')).toBe('painting')
+  })
+
+  it('maps Print to print', () => {
+    expect(getArtworkKind('Print')).toBe('print')
+  })
+
+  it('maps Drawing to drawing', () => {
+    expect(getArtworkKind('Drawing')).toBe('drawing')
+  })
+
+  it('maps Photograph to photograph', () => {
+    expect(getArtworkKind('Photograph')).toBe('photograph')
+  })
+
+  it('maps Sculpture to sculpture', () => {
+    expect(getArtworkKind('Sculpture')).toBe('sculpture')
+  })
+
+  it('maps any other type, or an empty one, to other', () => {
+    expect(getArtworkKind('Ceramic')).toBe('other')
+    expect(getArtworkKind('Bound Volume')).toBe('other')
+    expect(getArtworkKind('')).toBe('other')
+  })
+})
+
+describe('shuffle', () => {
+  const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+  it('keeps the same items, each one once', () => {
+    const result = shuffle(numbers)
+    expect(result).toHaveLength(numbers.length)
+    expect([...result].sort((a, b) => a - b)).toEqual(numbers)
+  })
+
+  it('does not change the original list', () => {
+    shuffle(numbers)
+    expect(numbers).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+  })
+
+  it('returns an empty list for an empty list', () => {
+    expect(shuffle([])).toEqual([])
   })
 })

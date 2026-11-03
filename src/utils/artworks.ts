@@ -1,4 +1,4 @@
-import type { ApiArtwork, Artwork } from '../types'
+import type { ApiArtwork, Artwork, ArtworkKind } from '../types'
 
 // "Thomas Eakins (American, 1844–1916)" → "Thomas Eakins". No creator → "Unknown artist".
 function artistName(item: ApiArtwork): string {
@@ -44,4 +44,42 @@ export function filterArtworks(artworks: Artwork[], query: string): Artwork[] {
       artwork.title.toLowerCase().includes(search) ||
       artwork.artist.toLowerCase().includes(search),
   )
+}
+
+// Every kind, in the order the filter chips show them, with its color from PRD.md.
+export const KIND_COLORS: Record<ArtworkKind, string> = {
+  painting: '#c9a46a',
+  print: '#6f9fd8',
+  drawing: '#d98c6a',
+  photograph: '#9aa5b1',
+  sculpture: '#8fbf8a',
+  other: '#a6a29a',
+}
+
+// The API type ('Painting', 'Print'…) → our kind. Any other type (Ceramic, Textile…) is 'other'.
+export function getArtworkKind(type: string): ArtworkKind {
+  switch (type.toLowerCase()) {
+    case 'painting':
+      return 'painting'
+    case 'print':
+      return 'print'
+    case 'drawing':
+      return 'drawing'
+    case 'photograph':
+      return 'photograph'
+    case 'sculpture':
+      return 'sculpture'
+    default:
+      return 'other'
+  }
+}
+
+// Returns a new list with the same items in a random order (Fisher–Yates). The original list does not change.
+export function shuffle<T>(items: T[]): T[] {
+  const result = [...items]
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[result[i], result[j]] = [result[j], result[i]]
+  }
+  return result
 }

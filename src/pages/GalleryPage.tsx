@@ -1,23 +1,32 @@
 import { useState } from 'react'
 import Gallery from '../components/Gallery'
+import KindFilter, { type KindChoice } from '../components/KindFilter'
 import SearchBar from '../components/SearchBar'
 import type { Artwork } from '../types'
-import { filterArtworks } from '../utils/artworks'
+import { filterArtworks, getArtworkKind } from '../utils/artworks'
 
 type GalleryPageProps = {
   artworks: Artwork[]
 }
 
 function GalleryPage({ artworks }: GalleryPageProps) {
-  // Only this page searches, so the query lives here and not in App.
+  // Only this page searches and filters, so both states live here and not in App.
   const [query, setQuery] = useState('')
-  // Computed on every render from the list and the query; no need for a second state.
-  const visibleArtworks = filterArtworks(artworks, query)
+  const [kind, setKind] = useState<KindChoice>('all')
+
+  // Computed on every render: first the kind, then the search on what is left.
+  const ofKind =
+    kind === 'all' ? artworks : artworks.filter((artwork) => getArtworkKind(artwork.type) === kind)
+  const visibleArtworks = filterArtworks(ofKind, query)
 
   return (
     <section>
       <h1>Gallery</h1>
       <SearchBar value={query} onChange={setQuery} />
+      <KindFilter value={kind} onChange={setKind} />
+      <p className="gallery-count">
+        {visibleArtworks.length} of {artworks.length} artworks
+      </p>
       <Gallery artworks={visibleArtworks} />
     </section>
   )
