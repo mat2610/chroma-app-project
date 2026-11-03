@@ -41,6 +41,20 @@ body {
   padding: 24px 16px;
 }
 
+.search-bar {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+  margin-bottom: 24px;
+  padding: 10px 14px;
+  border: 1px solid #2a2a27;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+}
+
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));

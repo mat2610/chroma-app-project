@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import type { ApiArtwork } from '../types'
-import { toArtwork, toArtworks } from './artworks'
+import type { ApiArtwork, Artwork } from '../types'
+import { filterArtworks, toArtwork, toArtworks } from './artworks'
 
 // A complete API item (a real one from the Cleveland API); each test copies it and changes only what it checks.
 const apiItem: ApiArtwork = {
@@ -96,5 +96,47 @@ describe('toArtworks', () => {
 
   it('returns an empty list for an empty list', () => {
     expect(toArtworks([])).toEqual([])
+  })
+})
+
+describe('filterArtworks', () => {
+  const artworks: Artwork[] = [
+    toArtwork({ ...apiItem, id: 1, title: 'The Biglin Brothers Turning the Stake' }),
+    toArtwork({
+      ...apiItem,
+      id: 2,
+      title: 'Nathaniel Hurd',
+      creators: [{ description: 'John Singleton Copley (American, 1738–1815)' }],
+    }),
+    toArtwork({ ...apiItem, id: 3, title: 'Water Lilies', creators: [] }),
+  ]
+  const ids = (list: Artwork[]) => list.map((artwork) => artwork.id)
+
+  it('returns every artwork for an empty query', () => {
+    expect(ids(filterArtworks(artworks, ''))).toEqual([1, 2, 3])
+  })
+
+  it('returns every artwork for a query of only spaces', () => {
+    expect(ids(filterArtworks(artworks, '   '))).toEqual([1, 2, 3])
+  })
+
+  it('finds by title', () => {
+    expect(ids(filterArtworks(artworks, 'lilies'))).toEqual([3])
+  })
+
+  it('finds by artist', () => {
+    expect(ids(filterArtworks(artworks, 'copley'))).toEqual([2])
+  })
+
+  it('ignores upper and lower case', () => {
+    expect(ids(filterArtworks(artworks, 'EAKINS'))).toEqual([1])
+  })
+
+  it('finds part of a word, and ignores spaces around the query', () => {
+    expect(ids(filterArtworks(artworks, '  hur '))).toEqual([2])
+  })
+
+  it('returns an empty list when nothing matches', () => {
+    expect(filterArtworks(artworks, 'picasso')).toEqual([])
   })
 })

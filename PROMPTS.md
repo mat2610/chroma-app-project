@@ -41,3 +41,7 @@
 **00:13 · claude**
 
 > The app still shows "Could not load the artworks". Debugging showed the Cleveland API sometimes serves a cached response without the Access-Control-Allow-Origin header for a given URL, so the browser blocks it. The same request with a unique query parameter always works. In src/api.ts, add a cache-busting parameter to both fetchArtworks and fetchArtwork (for example &t=${Date.now()} for the list and ?t=${Date.now()} for one artwork), with a short comment explaining why. Then run npm test and npm run build.
+
+**10:44 · claude**
+
+> Do task 6 only. Add a SearchBar component (controlled input, typed props value and onChange). The query state lives in GalleryPage. Add filterArtworks(artworks, query) in utils, case-insensitive on title and artist, with tests including an empty query. Explain why query lives in GalleryPage and not in App.
