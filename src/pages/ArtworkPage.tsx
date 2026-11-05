@@ -46,7 +46,8 @@ function ArtworkPage({ favorites, onToggleFavorite }: ArtworkPageProps) {
 
   // The tint comes from the kind of the artwork. While the next one loads, we keep the last color,
   // so the background fades from one color to the other (the transition is in CSS).
-  const kindColor = getKindColor(artwork === null ? 'other' : getArtworkKind(artwork.type))
+  const kind = artwork === null ? 'other' : getArtworkKind(artwork.type)
+  const kindColor = getKindColor(kind)
   const style = { '--kind-color': kindColor } as CSSProperties
 
   // The first page opened in the app has the key "default": then there is no page of ours to go back to.
@@ -60,7 +61,7 @@ function ArtworkPage({ favorites, onToggleFavorite }: ArtworkPageProps) {
 
   let content
   if (status === 'loading') {
-    content = <p>Loading…</p>
+    content = <p className="artwork-page-loading">Loading…</p>
   } else if (status === 'error' || artwork === null) {
     content = (
       <ErrorMessage
@@ -78,37 +79,50 @@ function ArtworkPage({ favorites, onToggleFavorite }: ArtworkPageProps) {
     ].filter(([, value]) => value !== '')
 
     content = (
-      <article>
-        <img
-          className="artwork-page-image"
-          src={artwork.imageUrl}
-          alt={artwork.title}
-        />
-        <h1>{artwork.title}</h1>
-        <p className="artwork-page-artist">{artwork.artist}</p>
-        <FavoriteButton
-          isFavorite={favorites.some((favorite) => favorite.id === artwork.id)}
-          onToggle={() => onToggleFavorite(artwork)}
-        />
-        <dl className="artwork-page-details">
-          {details.map(([label, value]) => (
-            <div key={label}>
-              <dt>{label}</dt>
-              <dd>{value}</dd>
-            </div>
-          ))}
-        </dl>
-        {artwork.description !== '' && (
-          <p className="artwork-page-description">{artwork.description}</p>
-        )}
-        <a
-          className="artwork-page-link"
-          href={`https://www.clevelandart.org/art/${artwork.accessionNumber}`}
-          target="_blank"
-          rel="noreferrer"
-        >
-          View at the museum ↗
-        </a>
+      <article className="artwork-page-layout">
+        <div className="artwork-page-media">
+          <img
+            className="artwork-page-image"
+            src={artwork.imageUrl}
+            alt={artwork.title}
+          />
+        </div>
+        <div className="artwork-page-info">
+          <p className="artwork-page-kind">
+            <span className="artwork-page-kind-dot" aria-hidden="true" />
+            {kind}
+            {artwork.date !== '' && ` · ${artwork.date}`}
+          </p>
+          <h1 className="artwork-page-title">{artwork.title}</h1>
+          <p className="artwork-page-artist">
+            <em>by</em> {artwork.artist}
+          </p>
+          <dl className="artwork-page-details">
+            {details.map(([label, value]) => (
+              <div key={label}>
+                <dt>{label}</dt>
+                <dd>{value}</dd>
+              </div>
+            ))}
+          </dl>
+          {artwork.description !== '' && (
+            <p className="artwork-page-description">{artwork.description}</p>
+          )}
+          <div className="artwork-page-actions">
+            <FavoriteButton
+              isFavorite={favorites.some((favorite) => favorite.id === artwork.id)}
+              onToggle={() => onToggleFavorite(artwork)}
+            />
+            <a
+              className="artwork-page-link"
+              href={`https://www.clevelandart.org/art/${artwork.accessionNumber}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              View at the museum ↗
+            </a>
+          </div>
+        </div>
       </article>
     )
   }

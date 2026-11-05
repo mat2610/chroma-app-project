@@ -82,3 +82,28 @@
 **11:49 · claude**
 
 > Do task 10 only. Add an Insights type and getInsights(artworks) in utils: count per kind, top 5 artists, count per century (from creation_date_earliest), with tests. InsightsPage shows them with a StatBar component (pure CSS bars, each kind in its color). Handle the loading and error states like the gallery.
+
+## 2026-11-05
+
+**11:19 · claude**
+
+> <ide_opened_file>The user opened the file c:\Users\User\OneDrive\Documents\לימודים\פיתוח web באמצעות ai\salon\chroma-app-project\PROMPTS.md in the IDE. This may or may not be related to the current task.</ide_opened_file>
+> 
+> 
+> <pasted_content id="29d9">
+> Do task 11 only. First add pickRandom(artworks) in utils with a test, a "Surprise me" pill button in NavBar that uses useNavigate to open a random artwork, and a NotFoundPage with a message and a Link home. Then do a full design pass to make Chroma look like a premium museum website. Hand-written CSS only, no UI library, do not change any logic.
+> 
+> Global: CSS variables (background #0f0f0e, text #ece8e0, muted #a6a29a, kind colors from PRD.md). Google Fonts: "Instrument Serif" for titles, "Manrope" for text. Soft radial glows in gold and blue at the top of the page background.
+> 
+> NavBar: sticky, translucent dark with backdrop-filter blur, "Chroma." logo in Instrument Serif with the dot in gold #c9a46a, NavLink active state with a 2px gold underline, favorites count as a small gold badge, "Surprise me" as an outlined pill button.
+> 
+> Gallery: a hero with a small uppercase label "The Cleveland Museum of Art · open access", a huge serif title "Art, sorted" with "by its nature." in italic gold on the next line, a one-line tagline, and on the right the number of artworks in big serif digits. Search as a rounded pill. Kind chips as pills with a colored dot; the active chip is filled with its kind color and dark text. Grid in CSS columns (masonry style, images keep their real ratio). Cards: no border, image with rounded corners and a deep shadow, lift on hover with a slight image zoom and a dark gradient with date and kind sliding in; under the image a short 2px line in the kind color, the title in serif, the artist in muted text.
+> 
+> Artwork page: two columns on desktop (large image with a soft shadow on the left, details on the right), background with a radial glow in the kind color fading to dark, a small colored dot with "KIND · DATE" in uppercase, huge serif title, "by" in italic serif, details in a 2-column grid between thin lines (date, technique, culture, department), description with a large drop cap in the kind color, then "Add to favorites" as a filled pill in the kind color and "View at the museum ↗" as an outlined pill.
+> 
+> Insights: big serif title "The collection, in numbers." with "in numbers." in italic gold, cards with rounded corners on #141413, bars that animate from 0 and use the kind colors, big serif numbers.
+> 
+> Motion: a short fade-up when a page appears, shimmer on skeletons, transitions of 200–400ms, all disabled under prefers-reduced-motion.
+> 
+> Responsive: check at 1440px and 390px; one column on phones, the hero title smaller, no horizontal scroll, touch targets at least 44px. Run npm test and npm run build, then list what you changed in each CSS file.
+> </pasted_content id="29d9">

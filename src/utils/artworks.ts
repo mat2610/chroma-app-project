@@ -97,3 +97,11 @@ export function shuffle<T>(items: T[]): T[] {
   }
   return result
 }
+
+// One item of the list, chosen at random, or undefined when the list is empty. The list does not change.
+export function pickRandom<T>(items: T[]): T | undefined {
+  if (items.length === 0) {
+    return undefined
+  }
+  return items[Math.floor(Math.random() * items.length)]
+}

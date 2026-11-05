@@ -1,9 +1,10 @@
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { ApiArtwork, Artwork } from '../types'
 import {
   filterArtworks,
   getArtworkKind,
   getKindColor,
+  pickRandom,
   shuffle,
   toArtwork,
   toArtworks,
@@ -216,5 +217,33 @@ describe('getKindColor', () => {
     ['other', '#a6a29a'],
   ] as const)('gives %s its PRD color %s', (kind, color) => {
     expect(getKindColor(kind)).toBe(color)
+  })
+})
+
+describe('pickRandom', () => {
+  const letters = ['a', 'b', 'c', 'd']
+
+  // Math.random is replaced in some tests, so we know which item comes out.
+  afterEach(() => {
+    vi.restoreAllMocks()
+  })
+
+  it('returns the first item when Math.random gives 0', () => {
+    vi.spyOn(Math, 'random').mockReturnValue(0)
+    expect(pickRandom(letters)).toBe('a')
+  })
+
+  it('returns the last item when Math.random gives almost 1', () => {
+    vi.spyOn(Math, 'random').mockReturnValue(0.999)
+    expect(pickRandom(letters)).toBe('d')
+  })
+
+  it('returns an item of the list, and does not change the list', () => {
+    expect(letters).toContain(pickRandom(letters))
+    expect(letters).toEqual(['a', 'b', 'c', 'd'])
+  })
+
+  it('returns undefined for an empty list', () => {
+    expect(pickRandom([])).toBeUndefined()
   })
 })

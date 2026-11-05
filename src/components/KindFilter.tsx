@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import type { ArtworkKind } from '../types'
 import { KIND_COLORS } from '../utils/artworks'
 
@@ -29,10 +30,12 @@ function KindFilter({ value, onChange }: KindFilterProps) {
           className="kind-chip"
           aria-pressed={choice === value}
           onClick={() => onChange(choice)}
+          // The dot, and the chip when it is chosen, use the color of its kind ("All" has none).
+          style={
+            choice === 'all' ? undefined : ({ '--kind-color': KIND_COLORS[choice] } as CSSProperties)
+          }
         >
-          {choice !== 'all' && (
-            <span className="kind-chip-dot" style={{ background: KIND_COLORS[choice] }} />
-          )}
+          {choice !== 'all' && <span className="kind-chip-dot" aria-hidden="true" />}
           {label(choice)}
         </button>
       ))}

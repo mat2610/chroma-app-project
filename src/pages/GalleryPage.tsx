@@ -21,9 +21,27 @@ function GalleryPage({ artworks }: GalleryPageProps) {
 
   return (
     <section>
-      <h1>Gallery</h1>
-      <SearchBar value={query} onChange={setQuery} />
-      <KindFilter value={kind} onChange={setKind} />
+      <header className="hero">
+        <div className="hero-text">
+          <p className="eyebrow">The Cleveland Museum of Art · open access</p>
+          <h1 className="hero-title">
+            Art, sorted
+            <br />
+            <em>by its nature.</em>
+          </h1>
+          <p className="hero-tagline">
+            Paintings, prints, drawings, photographs and sculpture, each kind in its own color.
+          </p>
+        </div>
+        <p className="hero-count">
+          <span className="hero-count-number">{artworks.length}</span>
+          <span className="hero-count-label">artworks</span>
+        </p>
+      </header>
+      <div className="gallery-controls">
+        <SearchBar value={query} onChange={setQuery} />
+        <KindFilter value={kind} onChange={setKind} />
+      </div>
       <p className="gallery-count">
         {visibleArtworks.length} of {artworks.length} artworks
       </p>

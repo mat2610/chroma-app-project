@@ -65,7 +65,7 @@ function App() {
 
   return (
     <>
-      <NavBar favoritesCount={favorites.length} />
+      <NavBar favoritesCount={favorites.length} artworks={artworks} />
       <main className="app">
         <Routes>
           <Route path="/" element={withArtworks(<GalleryPage artworks={artworks} />)} />

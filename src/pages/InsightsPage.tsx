@@ -25,34 +25,52 @@ function InsightsPage({ artworks }: InsightsPageProps) {
 
   return (
     <section className="insights">
-      <h1>Insights</h1>
-      <p className="insights-total">Based on the {insights.total} artworks loaded.</p>
+      <header className="insights-header">
+        <div>
+          <p className="eyebrow">Insights</p>
+          <h1 className="display-title">
+            The collection, <em>in numbers.</em>
+          </h1>
+        </div>
+        <p className="insights-total">
+          <span className="big-number">{insights.total}</span>
+          <span>artworks loaded</span>
+        </p>
+      </header>
 
-      <h2>Artworks per kind</h2>
-      {kinds.map((kind) => (
-        <StatBar
-          key={kind}
-          label={kindLabel(kind)}
-          value={insights.byKind[kind]}
-          max={maxKind}
-          color={getKindColor(kind)}
-        />
-      ))}
+      <div className="insights-grid">
+        <div className="insights-card">
+          <h2>Artworks per kind</h2>
+          {kinds.map((kind) => (
+            <StatBar
+              key={kind}
+              label={kindLabel(kind)}
+              value={insights.byKind[kind]}
+              max={maxKind}
+              color={getKindColor(kind)}
+            />
+          ))}
+        </div>
 
-      <h2>Top 5 artists</h2>
-      {insights.topArtists.map((artist) => (
-        <StatBar key={artist.name} label={artist.name} value={artist.count} max={maxArtist} />
-      ))}
+        <div className="insights-card">
+          <h2>Top 5 artists</h2>
+          {insights.topArtists.map((artist) => (
+            <StatBar key={artist.name} label={artist.name} value={artist.count} max={maxArtist} />
+          ))}
+        </div>
 
-      <h2>Artworks per century</h2>
-      {insights.byCentury.map((entry) => (
-        <StatBar
-          key={entry.century}
-          label={centuryLabel(entry.century)}
-          value={entry.count}
-          max={maxCentury}
-        />
-      ))}
+        <div className="insights-card insights-card-wide">
+          <h2>Artworks per century</h2>
+          {insights.byCentury.map((entry) => (
+            <StatBar
+              key={entry.century}
+              label={centuryLabel(entry.century)}
+              value={entry.count}
+              max={maxCentury}
+            />
+          ))}
+        </div>
+      </div>
     </section>
   )
 }
