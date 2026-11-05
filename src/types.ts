@@ -17,6 +17,17 @@ export type Artwork = {
 // The kinds of work Chroma groups artworks into, each with its own color.
 export type ArtworkKind = 'painting' | 'print' | 'drawing' | 'photograph' | 'sculpture' | 'other'
 
+// Statistics about a list of artworks, for the Insights page.
+export type Insights = {
+  total: number
+  // How many artworks of each kind, including the ones with 0.
+  byKind: Record<ArtworkKind, number>
+  // The 5 artists with the most artworks, most first ("Unknown artist" is left out).
+  topArtists: { name: string; count: number }[]
+  // A century is a number: 19 = 19th century, -4 = 4th century BCE. Oldest first.
+  byCentury: { century: number; count: number }[]
+}
+
 // One creator of an artwork. "description" reads like "Thomas Eakins (American, 1844–1916)".
 type ApiCreator = {
   description: string

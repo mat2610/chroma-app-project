@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { fetchArtworks } from './api'
 import ErrorMessage from './components/ErrorMessage'
@@ -51,18 +51,16 @@ function App() {
     loadArtworks()
   }, [])
 
-  let galleryContent
-  if (status === 'loading') {
-    galleryContent = <Loader />
-  } else if (status === 'error') {
-    galleryContent = (
-      <ErrorMessage
-        message="Could not load the artworks."
-        onRetry={reload}
-      />
-    )
-  } else {
-    galleryContent = <GalleryPage artworks={artworks} />
+  // The gallery and the insights both need the list: skeletons while loading, the error with
+  // "Try again" if it failed, and the page itself when the list is ready.
+  function withArtworks(page: ReactNode) {
+    if (status === 'loading') {
+      return <Loader />
+    }
+    if (status === 'error') {
+      return <ErrorMessage message="Could not load the artworks." onRetry={reload} />
+    }
+    return page
   }
 
   return (
@@ -70,7 +68,7 @@ function App() {
       <NavBar favoritesCount={favorites.length} />
       <main className="app">
         <Routes>
-          <Route path="/" element={galleryContent} />
+          <Route path="/" element={withArtworks(<GalleryPage artworks={artworks} />)} />
           <Route
             path="/artworks/:id"
             element={<ArtworkPage favorites={favorites} onToggleFavorite={toggleFavorite} />}
@@ -79,7 +77,10 @@ function App() {
             path="/favorites"
             element={<FavoritesPage favorites={favorites} onRemove={toggleFavorite} />}
           />
-          <Route path="/insights" element={<InsightsPage />} />
+          <Route
+            path="/insights"
+            element={withArtworks(<InsightsPage artworks={artworks} />)}
+          />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>

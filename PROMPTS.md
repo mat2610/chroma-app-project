@@ -78,3 +78,7 @@
 **11:41 · claude**
 
 > Do task 9 only. In App, a favorites state (Artwork[]) initialized from localStorage, saved with useEffect on every change, and a toggleFavorite(artwork) function passed by props. Add a FavoriteButton (heart) on ArtworkPage, the favorites count in NavBar, and FavoritesPage with a remove button and an empty state. Explain the path of a click on the heart.
+
+**11:49 · claude**
+
+> Do task 10 only. Add an Insights type and getInsights(artworks) in utils: count per kind, top 5 artists, count per century (from creation_date_earliest), with tests. InsightsPage shows them with a StatBar component (pure CSS bars, each kind in its color). Handle the loading and error states like the gallery.
