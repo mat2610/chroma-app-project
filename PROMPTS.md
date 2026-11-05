@@ -107,3 +107,7 @@
 > 
 > Responsive: check at 1440px and 390px; one column on phones, the hero title smaller, no horizontal scroll, touch targets at least 44px. Run npm test and npm run build, then list what you changed in each CSS file.
 > </pasted_content id="29d9">
+
+**11:38 · claude**
+
+> Bug: on the artwork page the tint is always grey. For a print (/artworks/108408) the inline style sets --kind-color: #6f9fd8, but the dot and the background glow use rgb(166,162,154), the default muted color. Some CSS rule redefines --kind-color on a child element and overrides the inline value. Find it and fix it so the tint and the dot use the artwork's kind color, without changing the logic. Then run npm test and npm run build.
