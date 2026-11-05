@@ -111,3 +111,8 @@
 **11:38 · claude**
 
 > Bug: on the artwork page the tint is always grey. For a print (/artworks/108408) the inline style sets --kind-color: #6f9fd8, but the dot and the background glow use rgb(166,162,154), the default muted color. Some CSS rule redefines --kind-color on a child element and overrides the inline value. Find it and fix it so the tint and the dot use the artwork's kind color, without changing the logic. Then run npm test and npm run build.
+
+**11:57 · claude**
+
+> <ide_opened_file>The user opened the file c:\Users\User\OneDrive\Documents\לימודים\פיתוח web באמצעות ai\salon\chroma-app-project\PROMPTS.md in the IDE. This may or may not be related to the current task.</ide_opened_file>
+> Do task 12 only. Write README.md: what Chroma does, the pages, how to run it (npm install, npm run dev), how to run the tests (npm test, npm run test:ui), which API, and why we switched from the Art Institute of Chicago API. Update PRD.md and docs/architecture.md to match the real code (5 requests of 20 artworks per kind with Promise.all, the cache-busting parameter, the shuffle, the back button, the hidden "Other" chip). Then run npm run build and npm test, search the code for "any" and fix it, and tell me if anything in tasks.md is not done.

@@ -11,8 +11,11 @@ Museum websites are rich but heavy. Chroma shows what matters (image, artist, da
 
 ## Data
 - API: Cleveland Museum of Art Open Access — `https://openaccess-api.clevelandart.org/api/artworks/` (free, no key, CORS open)
-- List: `?has_image=1&limit=60&fields=id,accession_number,title,creators,creation_date,creation_date_earliest,technique,culture,type,department,images`
-- One artwork: `https://openaccess-api.clevelandart.org/api/artworks/{id}`
+- List: `?has_image=1&limit=20&type={Type}&fields=id,accession_number,title,creators,creation_date,creation_date_earliest,technique,culture,type,department,images&t={Date.now()}`
+  - 5 requests, one per kind (`Painting`, `Print`, `Drawing`, `Photograph`, `Sculpture`), 20 artworks each, sent at the same time with `Promise.all`. If one fails, the whole list fails and the app shows "Try again".
+  - The 100 results are shuffled once, so the kinds are mixed in the grid.
+  - `t` is a cache-busting parameter: the API's cache sometimes serves an answer without the CORS header, and a unique URL always gets a fresh answer.
+- One artwork: `https://openaccess-api.clevelandart.org/api/artworks/{id}?t={Date.now()}` (no `fields`, so the answer includes the `description`)
 - Images: `images.web.url` in each artwork
 - Fields used: `id`, `accession_number`, `title`, `creators[0].description`, `creation_date`, `creation_date_earliest`, `technique`, `culture`, `type`, `department`, `description`, `images.web.url`
 - Why not the Art Institute of Chicago API: since late October 2026 it answers browser requests with 403 and no CORS header. Following the course rule (no proxy), we switched API.
@@ -20,8 +23,8 @@ Museum websites are rich but heavy. Chroma shows what matters (image, artist, da
 ## Pages
 | URL | Page | What the user does |
 |---|---|---|
-| `/` | Gallery | Searches, filters by kind of work, clicks an artwork |
-| `/artworks/:id` | Artwork | Sees the details and the story, adds to favorites |
+| `/` | Gallery | Searches, filters by kind of work (chips "All" + the 5 kinds; no "Other" chip, since only the 5 kinds are loaded), clicks an artwork |
+| `/artworks/:id` | Artwork | Sees the details and the story, adds to favorites, goes back with "← Back" (to the previous page, or to the gallery when the page was opened directly) |
 | `/favorites` | Favorites | Sees and removes saved artworks (saved in localStorage) |
 | `/insights` | Insights | Sees stats on the loaded collection: artworks per kind, top artists, artworks per century |
 | `*` | Not found | Sees a 404 message and a link back to the gallery |
